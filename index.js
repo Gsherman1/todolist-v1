@@ -14,6 +14,12 @@ let items = ["Buy Food", "Prepare Food", "Cook Food", "Eat Food"];
 let workItems = ["Show Up", "Get Settled"];
 
 let funItems = ["Sleep", "Play Outside"];
+
+let sadItems = ["Ice Cream", "Music"];
+
+let weekendItems = ["PLAY", "MUSIC"];
+
+let weekdayItems = ["SCHOOL", "WORK"];
 // set EJS as the viewing engine to display html
 app.set('view engine', 'ejs');
 
@@ -49,6 +55,19 @@ app.post("/", function(req, res) {
         workItems.push(item);
         res.redirect("/fun");
     }
+    else if (req.body.list === "sad") {
+        sadItems.push(item);
+        res.redirect("/sad");
+    }
+
+    else if (req.body.list === "weekend") {
+        weekendItems.push(item);
+        res.redirect("/weekend");
+    }
+    else if (req.body.list === "weekday") {
+        weekdayItems.push(item);
+        res.redirect("/weekday");
+    }
     else {
         items.push(item);
         res.redirect("/");
@@ -61,7 +80,19 @@ app.get("/work", function(req, res){
 });
 
 app.get("/fun", function(req, res){
-    res.render("list", {listTitle: "Fun stuff to de", newListItems: funItems})
+    res.render("list", {listTitle: "Fun stuff to do", newListItems: funItems})
+});
+
+app.get("/sad", function(req, res){
+    res.render("list", {listTitle: "Sad stuff to do", newListItems: funItems})
+});
+
+app.get("/weekend", function(req, res){
+    res.render("list", {listTitle: "Weekend stuff to do", newListItems: weekendItems})
+});
+
+app.get("/weekday", function(req, res){
+    res.render("list", {listTitle: "Weekday stuff to do", newListItems: weekdayItems})
 });
 app.listen(3000, function() {
 console.log ("Server is running on port 3000")
